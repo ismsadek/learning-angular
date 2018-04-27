@@ -1,0 +1,90 @@
+<h3>{{ title }}</h3>
+<p><strong>El empleado estrella es:</strong></p>
+	
+
+	<div *ngIf = "trabajadorExterno == true">
+		<h4>Empleado</h4>
+		<button (click) = "cambiarExterno(false)">Mostrar Trabajador </button>
+		<ul>
+			<li>{{ empleado.nombre }}</li>
+			<li>{{ empleado.edad }}</li>
+			<li>{{ empleado.cargo }}</li>
+			
+			<li *ngIf="empleado.contratado == true">Está contratado</li>
+			<li *ngIf="empleado.contratado == false">Nooo Está contratado</li>
+		</ul>
+	</div>
+
+	<div *ngIf = "trabajadorExterno == false">
+		<h4>Trabajador</h4>
+		<button (click) = "cambiarExterno(true)">Mostrar Empleado</button>
+		<ul>
+			<li>{{trabajadores[2].nombre }}</li>
+			<li>{{trabajadores[2].edad }}</li>
+			<li>{{trabajadores[2].cargo }}</li>
+			
+			<li *ngIf="trabajadores[2].contratado == false">Nooo Está contratado</li>
+			<li *ngIf="trabajadores[2].contratado == true">Está contratado</li>
+		</ul>
+	</div>
+
+	<h3>Listado de Empleados con NGFOR</h3>
+		<ul *ngFor = "let trabajador of trabajadores; index as i"> <!-- let si lo defines dentro de un if o for solo tiene alcance dentro de {}, sin embargo
+		si fuera var, su alcance sería local -->
+			<h4>Empleado {{i+1}}</h4>
+			<li>{{trabajador.nombre }}</li>
+			<li>{{trabajador.edad }}</li>
+			<li>{{trabajador.cargo }}</li>
+			
+			<li *ngIf="trabajador.contratado == false">Nooo Está contratado</li>
+			<li *ngIf="trabajador.contratado == true">Está contratado</li>
+		</ul>
+
+	<h3>Colores Switch</h3>
+	<ul [ngSwitch]= "color">
+		<li *ngSwitchCase = "'red'" [ngStyle] ="{
+				'background-color': color,
+				'color': 'white'
+			}">Es de color RED</li>
+	</ul>
+	<ul [ngSwitch]= "color">
+		<li *ngSwitchCase = "'green'" [ngStyle] ="{
+				'background-color': color,
+				'color': 'white'
+			}">Es de color VERDE</li>
+	</ul>
+	<ul [ngSwitch]= "color">
+		<li *ngSwitchCase = "'blue'" [ngStyle] ="{
+				'background-color': color,
+				'color': 'white'
+			}">Es de color BLUE</li>
+	</ul>
+
+	<h3>Selector de colores</h3>
+	<button (click) = "logColorSeleccionado()">Log del color</button> <!-- Hay que dejar espacion entre button y (click) -->
+
+	<input type="text" [(ngModel)] = "colorSeleccionado">
+	<br>
+	<br>
+	<pre
+		[style.border] = " colorSeleccionado == 'red' ? '5px solid red' : '1px solid black' "
+		[ngClass] = "{ 'bg-blue': colorSeleccionado == 'blue',
+									 'bg-yellow': colorSeleccionado == 'yellow'
+		 }"
+		>{{colorSeleccionado}}</pre>
+		<!-- [class.bg-blue] = "colorSeleccionado == 'blue'"
+		[class.bg-yellow] = "colorSeleccionado == 'yellow'"
+		 -->
+	<div [ngStyle] = "{
+		'background-color' : colorSeleccionado,
+		'color' : 'white',
+		'width' : '200px',
+		'height' : '200px',
+		'float' : 'right',
+		'margin-right' : '30px'
+	}">
+		
+	</div>
+
+		
+
